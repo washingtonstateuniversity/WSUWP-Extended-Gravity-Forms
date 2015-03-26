@@ -48,7 +48,9 @@ class WSU_Extended_Gravity_Forms {
 	 * Enqueue scripts needed for extended Gravity Forms support.
 	 */
 	public function load_scripts() {
-		wp_enqueue_script('gravity-forms-word-count', plugins_url( '/js/egf-word-count.js', __FILE__ ), array('jquery'), '0.1', true);
+		if ( class_exists( 'GFForms' ) ) {
+			wp_enqueue_script('gravity-forms-word-count', plugins_url( '/js/egf-word-count.js', __FILE__ ), array('jquery'), '0.1', true);
+		}
 	}
 }
 $wsu_extended_gravity_forms = new WSU_Extended_Gravity_Forms();
