@@ -25,6 +25,10 @@ class WSU_Extended_Gravity_Forms {
 	 * needing to be an administrator. Do not allow editors to modify settings.
 	 */
 	public function modify_roles() {
+		if ( ! class_exists( 'GFForms' ) ) {
+			return;
+		}
+
 		$editor = get_role( 'editor' );
 
 		// Provide access to most basic gravityforms functionality.
