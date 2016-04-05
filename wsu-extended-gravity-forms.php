@@ -17,7 +17,6 @@ class WSU_Extended_Gravity_Forms {
 	 */
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'modify_roles' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
 
 		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row', 10, 2 );
 		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row', 10, 2 );
@@ -50,15 +49,6 @@ class WSU_Extended_Gravity_Forms {
 		$editor->remove_cap( 'gravityforms_view_settings' );
 		$editor->remove_cap( 'gravityforms_edit_settings' );
 		$editor->remove_cap( 'gravityforms_uninstall' );
-	}
-
-	/**
-	 * Enqueue scripts needed for extended Gravity Forms support.
-	 */
-	public function load_scripts() {
-		if ( class_exists( 'GFForms' ) ) {
-			wp_enqueue_script('gravity-forms-word-count', plugins_url( '/js/egf-word-count.js', __FILE__ ), array('jquery'), '0.1', true);
-		}
 	}
 }
 $wsu_extended_gravity_forms = new WSU_Extended_Gravity_Forms();
