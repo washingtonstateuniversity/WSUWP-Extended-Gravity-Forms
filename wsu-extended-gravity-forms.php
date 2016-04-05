@@ -18,6 +18,10 @@ class WSU_Extended_Gravity_Forms {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'modify_roles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
+
+		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row', 10, 2 );
+		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row', 10, 2 );
+		remove_action( 'after_plugin_row_gwwordcount/gwwordcount.php', 'after_perk_plugin_row', 10, 2 );
 	}
 
 	/**
