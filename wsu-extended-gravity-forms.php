@@ -60,8 +60,8 @@ class WSU_Extended_Gravity_Forms {
 	 * Remove values from the 'ip', 'created_by', and 'user_agent' fields for
 	 * forms with anonymous submissions enabled.
 	 *
-	 * @param object	$entry	The entry that was just created.
-	 * @param object	$form	The current form.
+	 * @param object $entry The entry that was just created.
+	 * @param object $form  The current form.
 	 */
 	public function anonymous_submission( $entry, $form ) {
 		if ( array_key_exists( 'wsuwp_is_anonymous', $form ) && $form['wsuwp_is_anonymous'] ) {
@@ -74,7 +74,9 @@ class WSU_Extended_Gravity_Forms {
 	/**
 	 * Add a tooltip for the anonymous submissions setting.
 	 *
-	 * @param array		$tooltips	An array of tooltips.
+	 * @param array $tooltips An array of tooltips.
+	 *
+	 * @return array
 	 */
 	public function add_anonymous_submissions_tooltip( $tooltips ) {
 		$tooltips['wsuwp_is_anonymous'] = "<h6>" . __( "Anonymous Submissions", "gravityforms" ) . "</h6>" . __( "Check this option to disable storing entry data that could potentially be used to identify people who submit this form.", "gravityforms" );
@@ -84,8 +86,10 @@ class WSU_Extended_Gravity_Forms {
 	/**
 	 * Add a setting to allow anonmyous submissions.
 	 *
-	 * @param array		$settings	An array of settings for the Form Settings UI.
-	 * @param object	$form		The current form object being displayed.
+	 * @param array  $settings An array of settings for the Form Settings UI.
+	 * @param object $form     The current form object being displayed.
+	 *
+	 * @return array
 	 */
 	public function anonymous_submissions_form_setting( $settings, $form ) {
 		$checked = ( rgar( $form, 'wsuwp_is_anonymous' ) ) ? 'checked="checked"' : "";
@@ -101,7 +105,9 @@ class WSU_Extended_Gravity_Forms {
 	/**
 	 * Save the anonymous submissions setting.
 	 *
-	 * @param object	$form	The current form object being edited.
+	 * @param object $form The current form object being edited.
+	 *
+	 * @return object
 	 */
 	public function save_anonymous_submissions_form_setting( $form ) {
 		$form['wsuwp_is_anonymous'] = rgpost( 'wsuwp_is_anonymous' );
@@ -113,7 +119,9 @@ class WSU_Extended_Gravity_Forms {
 	 * Remove 'ip', 'created_by', and 'user_agent' fields from the export options
 	 * if the form is anonymous.
 	 *
-	 * @param object	$form	The current form.
+	 * @param object $form The current form.
+	 *
+	 * @return object
 	 */
 	public function remove_export_fields( $form ) {
 		if ( array_key_exists( 'wsuwp_is_anonymous', $form ) && $form['wsuwp_is_anonymous'] ) {
