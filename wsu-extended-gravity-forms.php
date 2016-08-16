@@ -16,6 +16,7 @@ class WSU_Extended_Gravity_Forms {
 	 * Setup hooks.
 	 */
 	public function __construct() {
+		add_action( 'admin_init', array( $this, 'remove_perks_notices' ) );
 		add_action( 'admin_init', array( $this, 'modify_roles' ) );
 		add_action( 'gform_after_submission', array( $this, 'anonymous_submission' ), 10, 2 );
 		add_filter( 'gform_tooltips', array( $this, 'add_anonymous_submissions_tooltip') );
@@ -26,6 +27,17 @@ class WSU_Extended_Gravity_Forms {
 		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row', 10 );
 		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row', 10 );
 		remove_action( 'after_plugin_row_gwwordcount/gwwordcount.php', 'after_perk_plugin_row', 10 );
+	}
+
+	/**
+	 * Remove actions added by Gravity Perks for displaying notices.
+	 */
+	public function remove_perks_notices() {
+		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row' );
+		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row' );
+		remove_action( 'after_plugin_row_gwwordcount/gwwordcount.php', 'after_perk_plugin_row' );
+		remove_action( 'after_plugin_row_gravityperks/gravityperks.php', 'GWPerks::after_plugin_row' );
+		remove_action( 'admin_notices', 'GWPerks::display_admin_message' ); // This doesn't work :(
 	}
 
 	/**
