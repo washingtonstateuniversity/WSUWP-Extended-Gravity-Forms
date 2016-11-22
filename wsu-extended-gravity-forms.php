@@ -22,6 +22,7 @@ class WSU_Extended_Gravity_Forms {
 		add_filter( 'gform_form_settings', array( $this, 'anonymous_submissions_form_setting' ), 10, 2 );
 		add_filter( 'gform_pre_form_settings_save', array( $this, 'save_anonymous_submissions_form_setting' ) );
 		add_filter( 'gform_export_fields', array( $this, 'remove_export_fields' ) );
+		add_filter( 'gform_file_permission', array( $this, 'file_permission' ) );
 
 		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row', 10 );
 		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row', 10 );
@@ -141,6 +142,24 @@ class WSU_Extended_Gravity_Forms {
 		}
 
 		return $form;
+	}
+
+	/**
+	 * Gravity Forms uses `chmod` after renaming a temporary file to ensure that
+	 * permissions are set to 0644 by default. When S3 Uploads is enabled, files
+	 * are hosted on AWS S3 and `chmod()` is not a supported stream operation in
+	 * the AWS SDK that S3 Uploads uses. In these cases, we're okay to skip `chmod()`.
+	 *
+	 * @param string $permission
+	 *
+	 * @return bool|string
+	 */
+	public function file_permission( $permission ) {
+		if ( function_exists( 's3_uploads_enabled') && s3_uploads_enabled() ) {
+			return false;
+		}
+
+		return $permission;
 	}
 }
 $wsu_extended_gravity_forms = new WSU_Extended_Gravity_Forms();
