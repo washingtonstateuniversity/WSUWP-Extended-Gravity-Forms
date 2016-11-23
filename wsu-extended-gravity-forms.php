@@ -23,6 +23,7 @@ class WSU_Extended_Gravity_Forms {
 		add_filter( 'gform_pre_form_settings_save', array( $this, 'save_anonymous_submissions_form_setting' ) );
 		add_filter( 'gform_export_fields', array( $this, 'remove_export_fields' ) );
 		add_filter( 'gform_file_permission', array( $this, 'file_permission' ) );
+		add_filter( 'gform_upload_root_htaccess_rules', '__return_empty_array' );
 
 		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row', 10 );
 		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row', 10 );
