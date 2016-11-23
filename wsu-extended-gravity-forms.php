@@ -18,7 +18,7 @@ class WSU_Extended_Gravity_Forms {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'modify_roles' ) );
 		add_action( 'gform_after_submission', array( $this, 'anonymous_submission' ), 10, 2 );
-		add_filter( 'gform_tooltips', array( $this, 'add_anonymous_submissions_tooltip') );
+		add_filter( 'gform_tooltips', array( $this, 'add_anonymous_submissions_tooltip' ) );
 		add_filter( 'gform_form_settings', array( $this, 'anonymous_submissions_form_setting' ), 10, 2 );
 		add_filter( 'gform_pre_form_settings_save', array( $this, 'save_anonymous_submissions_form_setting' ) );
 		add_filter( 'gform_export_fields', array( $this, 'remove_export_fields' ) );
@@ -80,7 +80,7 @@ class WSU_Extended_Gravity_Forms {
 	 * @return array
 	 */
 	public function add_anonymous_submissions_tooltip( $tooltips ) {
-		$tooltips['wsuwp_is_anonymous'] = "<h6>" . __( "Anonymous Submissions", "gravityforms" ) . "</h6>" . __( "Check this option to disable storing entry data that could potentially be used to identify people who submit this form.", "gravityforms" );
+		$tooltips['wsuwp_is_anonymous'] = '<h6>' . __( 'Anonymous Submissions', 'gravityforms' ) . '</h6>' . __( 'Check this option to disable storing entry data that could potentially be used to identify people who submit this form.', 'gravityforms' );
 		return $tooltips;
 	}
 
@@ -93,7 +93,7 @@ class WSU_Extended_Gravity_Forms {
 	 * @return array
 	 */
 	public function anonymous_submissions_form_setting( $settings, $form ) {
-		$checked = ( rgar( $form, 'wsuwp_is_anonymous' ) ) ? 'checked="checked"' : "";
+		$checked = ( rgar( $form, 'wsuwp_is_anonymous' ) ) ? 'checked="checked"' : '';
 		$settings['Form Options']['wsuwp_is_anonymous'] = '
 			<tr>
 				<th>' . __( 'Anonymous', 'gravityforms' ) . ' ' . gform_tooltip( 'wsuwp_is_anonymous', '', true ) . '</th>
@@ -135,8 +135,8 @@ class WSU_Extended_Gravity_Forms {
 			foreach ( $form['fields'] as $key => $field ) {
 				$field_id = is_object( $field ) ? $field->id : $field['id'];
 
-				if ( in_array( $field_id, $fields_to_remove ) ) {
-					unset ( $form['fields'][ $key ] );
+				if ( in_array( $field_id, $fields_to_remove, true ) ) {
+					unset( $form['fields'][ $key ] );
 				}
 			}
 		}
@@ -155,7 +155,7 @@ class WSU_Extended_Gravity_Forms {
 	 * @return bool|string
 	 */
 	public function file_permission( $permission ) {
-		if ( function_exists( 's3_uploads_enabled') && s3_uploads_enabled() ) {
+		if ( function_exists( 's3_uploads_enabled' ) && s3_uploads_enabled() ) {
 			return false;
 		}
 
