@@ -24,11 +24,24 @@ class WSU_Extended_Gravity_Forms {
 		add_filter( 'gform_export_fields', array( $this, 'remove_export_fields' ) );
 		add_filter( 'gform_file_permission', array( $this, 'file_permission' ) );
 		add_filter( 'gform_upload_root_htaccess_rules', '__return_empty_array' );
+		add_filter('gform_notification_enable_cc', array( $this, 'enable_cc_field'), 10, 3 );
+
 
 		remove_action( 'after_plugin_row_gwlimitchoices/gwlimitchoices.php', 'after_perk_plugin_row', 10 );
 		remove_action( 'after_plugin_row_gwlimitcheckboxes/gwlimitcheckboxes.php', 'after_perk_plugin_row', 10 );
 		remove_action( 'after_plugin_row_gwwordcount/gwwordcount.php', 'after_perk_plugin_row', 10 );
 	}
+
+
+	/**
+	 * Allow cc field to be used on gravity forms
+	 *
+	 * @since 0.5.1
+	 */
+	public function enable_cc_field( $enable, $notification, $form ){
+		return true;
+	}
+
 
 	/**
 	 * Modify the editor role so that users can create and modify forms without
