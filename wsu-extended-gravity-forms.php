@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Extended Gravity Forms
-Version: 0.5.0
+Version: 0.6.0
 Plugin URI: https://web.wsu.edu/
 Description: Extends and modifies default functionality in Gravity Forms.
 Author: washingtonstateuniversity, jeremyfelt
